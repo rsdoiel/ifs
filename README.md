@@ -7,7 +7,7 @@
 By R. S. Doiel, 2020-05-02
 
 This is a port of the IFS module described in Martin Reiser 
-and Niklaus Writh's "Programming in Oberon: Steps beyond Pascal 
+and Niklaus Wirth's "Programming in Oberon: Steps beyond Pascal 
 and Modula-2".  The code has been adapted from the original
 Oberon presented in the book to Oberon-7 as described in 
 Wirth's [Project Oberon 2013](http://www.projectoberon.com/).
@@ -38,25 +38,40 @@ One module file and several data files are included in this project.
 The module's `Init*` procedure needs to read in the initialization
 data before drawing the fractals. The data file format is as follows
 
-### Row 1
+### Map of values
+
+The initialization procedures reads text from standard input.
+The layout of variables is as follows.
+
+```
+x0 y0 e
+a1 a2 a3 a4
+b1 b2 b3 b4
+c1 c2 c3 c4
+d1 d2 d3 d4
+e1 e2 e3 e4
+f1 f2 f3 f4
+p1 p2 p3 p4
+```
+
+#### Row Integers
 
 ```
 x0  y0  e
 ```
 
-Each value is an integer.  `e` is the a scaling factor. In the source
-it is refered to as "unit size".
-Two data files function likes the
-Tool texts in the book.
+`x0` and `y0` are the left and bottom edges.  `e` is the a scaling factor. 
+In the source it is referred to as "unit size".
 
-### Rows 2 through 8
+#### Rows 2 through 8 are Reals
 
-Next of real values for where columns are each pass (1 through 4)
-and each row corresponds to an `a`, `b`, `c`, `d`, `e`, `f`, `p` values.
+The remaining rows are real number values. Each column represents
+a function pass (e.g. 1 to 4).  Each rows represents a variable,
+`a`, `b`, `c`, `d`, `e`, `f`, `p` values.
 
-Numbers are separated by space.  
+In all rows numbers are separated by one or more spaces.
 
-#### Barnsley Fern:
+##### Barnsley Fern:
 
 ```
 440  28    64
@@ -69,7 +84,7 @@ Numbers are separated by space.
 0.01 0.85  0.07  0.07  
 ```
 
-#### Fractal Tree
+##### Fractal Tree
 
 ```
 480    1      1200
@@ -97,7 +112,8 @@ to cause `IFS` to read the file.
 
 This code was originally developed by Martin Reiser and Niklaus Wirth
 as part of their 1992 book, "Programming in Oberon: Steps beyond
-Pascal and Modula-2"[^pio].  It was an exercise and seeing how easy
-it was to adapt the original Oberon code to a more lean Oberon-7.
+Pascal and Modula-2"[^pio].  This repository was an exercise and 
+seeing how easy it would be to adapt the book's code to
+Oberon-7.
 
-[^pio]: "Programming in Oberon: Steps beyond Pascal and Modula-2", Martin Reisner and Niklaus Wirth, Addison Wesley (18 May 1992), ISBN-10: 0201565439, ISBN-13: 978-0201565430, https://dl.acm.org/doi/book/10.1145/134408
+[^pio]: "Programming in Oberon: Steps beyond Pascal and Modula-2", Martin Reiser and Niklaus Wirth, Addison Wesley (18 May 1992), ISBN-10: 0201565439, ISBN-13: 978-0201565430, https://dl.acm.org/doi/book/10.1145/134408
