@@ -3,3 +3,5 @@
 *.bak
 *.exe
 .DS_Store
+.obnc
+IFS

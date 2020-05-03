@@ -8,7 +8,7 @@ OBNC compiler, v0.16.1 by Karl Landstrom.
 *)
 MODULE IFS;
 
-IMORT RandomNumbers, In, Out, XYplane;
+IMPORT RandomNumbers, In, Out, XYplane;
 
 VAR
   a1, b1, c1, d1, e1, f1, p1 : REAL; (* IFS parameters *)
@@ -21,9 +21,49 @@ VAR
   e : INTEGER; (* Size of unit interval [pixels] *)
   initialized: BOOLEAN; (* Are parameters initialized? *)
 
-PROCEDURE Draw*; (* command marked for export *)
+PROCEDURE Draw*;     (* command marked for export *)
 VAR
-  x, y : REAL; (* new position *)
+  x, y : REAL;       (* new position *)
   xi, eta : INTEGER; (* pixel coordinates of pen *)
+  rn : REAL;         (* temp. variable for random number *)
+BEGIN
+  IF initialized THEN
+    WHILE "s" # XYplane.Key() DO
+      rn := RandomNumbers.Uniform();
+      IF rn < p1 THEN
+        x := (a1 * X) + (b1 * Y) + e1; y := (c1 * X) + (d1 * Y) + f1;
+      ELSIF rn < (p1 + p2) THEN
+        x := (a2 * X) + (b2 * Y) + e2; y := (c2 * X) + (d2 * Y) + f2;
+      ELSIF rn < (p1 + p2 + p3) THEN
+        x := (a3 * X) + (b3 * Y) + e3; y := (c3 * X) + (d3 * Y) + f3;
+      ELSE
+        x := (a4 * X) + (b4 * Y) + e4; y := (c4 * X) + (d4 * Y) + f4;
+      END;
+      X := x; xi := x0 + FLOOR(X*FLT(e));
+      Y := y; eta := y0 + FLOOR(Y*FLT(e));
+      XYplane.Dot(xi, eta, XYplane.draw);
+    END;
+  END;
+END Draw;
 
+PROCEDURE Init*; (* command marked for export *)
+BEGIN
+  X := 0.0; Y := 0.0; (* Initial position of pen *)
+  initialized := FALSE; In.Open;
+  In.Int(x0);  In.Int(y0);  In.Int(e); 
+  In.Real(a1); In.Real(a2); In.Real(a3); In.Real(a4); 
+  In.Real(b1); In.Real(b2); In.Real(b3); In.Real(b4);
+  In.Real(c1); In.Real(c2); In.Real(c3); In.Real(c4);
+  In.Real(d1); In.Real(d2); In.Real(d3); In.Real(d4); 
+  In.Real(e1); In.Real(e2); In.Real(e3); In.Real(e4); 
+  In.Real(f1); In.Real(f2); In.Real(f3); In.Real(f4); 
+  In.Real(p1); In.Real(p2); In.Real(p3); In.Real(p4); 
+  IF In.Done THEN XYplane.Open; initialized := TRUE
+  ELSE Out.String("Parameter error"); Out.Ln;
+  END;
+END Init;
+
+BEGIN initialized := FALSE;
+  Init();
+  Draw();
 END IFS.
