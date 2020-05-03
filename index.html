@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+  <link href="css/site.css" rel="stylesheet" />
+  <link href="css/tables.css" rel="stylesheet" />
+  <link href="css/prettify.css" rel="stylesheet" />
+</head>
+<body>
+  
+  <nav><ul>
+<li><a href="/">HOME</a></li>
+<li><a href="./">README</a></li>
+<li><a href="./license.html">LICENSE</a></li>
+<li><a href="obncdoc/index.html">OBNC Docs</a></li>
+<li><a href="https://github.com/rsdoiel/ifs">GitHub</a></li>
+</ul>
+</nav>
+  <section><h1 id="ifs">IFS</h1>
+
+<p>By R. S. Doiel, 2020-05-02</p>
+
+<p>This is a port of the IFS module described in Martin Reiser
+and Niklaus Wirth's &quot;Programming in Oberon: Steps beyond Pascal
+and Modula-2&quot;.  The code has been adapted from the original
+Oberon presented in the book to Oberon-7 as described in
+Wirth's <a href="http://www.projectoberon.com/">Project Oberon 2013</a>.</p>
+
+<h2 id="requirements">Requirements</h2>
+
+<ul>
+<li>A POSIX computer system</li>
+<li>A Text editor</li>
+<li><a href="https://miasap.se/obnc/">OBNC v0.16.1</a>
+
+<ul>
+<li>A &quot;C&quot; tool chain</li>
+<li>libsdl2</li>
+</ul></li>
+</ul>
+
+<h2 id="source-code-organization">Source Code organization</h2>
+
+<p>One module file and several data files are included in this project.</p>
+
+<ul>
+<li><a href="IFS.Mod">IFS.Mod</a> is a port of the original described in the book</li>
+<li>Data files: <a href="Fern1.txt">Barnsley Fern</a>, <a href="Fern2.txt">Variation on Barnsley Fern</a>, <a href="Sierpinski.txt">Sierpinski Triangle</a> and <a href="Square.txt">Square</a>.</li>
+</ul>
+
+<h2 id="compilation">Compilation</h2>
+
+<pre><code class="language-shell">    obnc IFS.Mod
+</code></pre>
+
+<h2 id="the-data-file-format">The data file format</h2>
+
+<p>The module's <code>Init*</code> procedure needs to read in the initialization
+data before drawing the fractals. The data file format is as follows</p>
+
+<h3 id="map-of-values">Map of values</h3>
+
+<p>The initialization procedures reads text from standard input.
+The layout of variables is as follows.</p>
+
+<pre><code>x0 y0 e
+a1 a2 a3 a4
+b1 b2 b3 b4
+c1 c2 c3 c4
+d1 d2 d3 d4
+e1 e2 e3 e4
+f1 f2 f3 f4
+p1 p2 p3 p4
+</code></pre>
+
+<h4 id="row-integers">Row Integers</h4>
+
+<pre><code>x0  y0  e
+</code></pre>
+
+<p><code>x0</code> and <code>y0</code> are the left and bottom edges.  <code>e</code> is the a scaling factor.
+In the source it is referred to as &quot;unit size&quot;.</p>
+
+<h4 id="rows-2-through-8-are-reals">Rows 2 through 8 are Reals</h4>
+
+<p>The remaining rows are real number values. Each column represents
+a function pass (e.g. 1 to 4).  Each rows represents a variable,
+<code>a</code>, <code>b</code>, <code>c</code>, <code>d</code>, <code>e</code>, <code>f</code>, <code>p</code> values.</p>
+
+<p>In all rows numbers are separated by one or more spaces.</p>
+
+<h5 id="barnsley-fern">Barnsley Fern:</h5>
+
+<pre><code>440  28    64
+0.0  0.85  0.2  -0.15
+0.0  0.04  -0.26 0.28
+0.0  -0.04 0.23  0.26
+0.16 0.85  0.22  0.24
+0.0  0.0   0.0   0.0
+0.0  1.60  1.60  0.44
+0.01 0.85  0.07  0.07  
+</code></pre>
+
+<h5 id="fractal-tree">Fractal Tree</h5>
+
+<pre><code>480    1      1200
+0.0    0.42   0.42   0.1
+0.0    -0.42  0.42   0.0
+0.0    0.42   -0.42  0.0
+0.5    0.42   0.42   0.1
+0.0    0.0    0.0    0.0
+0.0    0.2    0.2    0.2
+0.05   0.4    0.4    0.15
+</code></pre>
+
+<h2 id="running-ifs">Running IFS</h2>
+
+<pre><code class="language-shell">    ./IFS &lt; Fern1.txt
+    ./IFS &lt; Tree.txt
+</code></pre>
+
+<p>The program expects to read a series of integer and real values
+from standard input.  You can use a POSIX style pipe or redirect
+to cause <code>IFS</code> to read the file.</p>
+
+<h2 id="in-closing">In Closing</h2>
+
+<p>This code was originally developed by Martin Reiser and Niklaus Wirth
+as part of their 1992 book, &quot;Programming in Oberon: Steps beyond
+Pascal and Modula-2&quot;<sup class="footnote-ref" id="fnref:pio"><a href="#fn:pio">1</a></sup>.  This repository was an exercise and
+seeing how easy it would be to adapt the book's code to
+Oberon-7.</p>
+<h1 id="footnote-section">Footnotes</h1>
+
+<div class="footnotes">
+
+<hr>
+
+<ol>
+<li id="fn:pio">&quot;Programming in Oberon: Steps beyond Pascal and Modula-2&quot;, Martin Reiser and Niklaus Wirth, Addison Wesley (18 May 1992), ISBN-10: 0201565439, ISBN-13: 978-0201565430, <a href="https://dl.acm.org/doi/book/10.1145/134408">https://dl.acm.org/doi/book/10.1145/134408</a></li>
+</ol>
+
+</div>
+</section>
+  
+</body>
+<!-- START: PrettyFi from https://github.com/google/code-prettify -->
+<script>
+/* We want to add the class "prettyprint" to all the pre elements */
+var pre_list = document.querySelectorAll("pre");
+
+pre_list.forEach(function(elem) {
+    elem.classList.add("prettyprint");
+    /* elem.classList.add("linenums:1");*/
+    elem.classList.add("linenums:1");
+});
+</script>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+<!--  END: PrettyFi from https://github.com/google/code-prettify -->
+</html>

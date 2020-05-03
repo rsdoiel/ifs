@@ -1,0 +1,15 @@
+(*IFS.Mod is based on a program in "Programming in Oberon:
+Steps beyond Pascal and Modula-2", by Martin Reisner and 
+Niklaus Wirth, published in 1992, by ACM Books, Chapter 7.3, 
+Pages 92 through 95. 
+
+The program has been modified to conform to Oberon-7 using the
+OBNC compiler, v0.16.1 by Karl Landstrom.
+*)
+DEFINITION IFS;
+
+PROCEDURE Draw;
+
+PROCEDURE Init;
+
+END IFS.
