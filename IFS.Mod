@@ -50,13 +50,21 @@ PROCEDURE Init*; (* command marked for export *)
 BEGIN
   X := 0.0; Y := 0.0; (* Initial position of pen *)
   initialized := FALSE; In.Open;
+  Out.String("Reading (int) x0, y0 and e");Out.Ln;
   In.Int(x0);  In.Int(y0);  In.Int(e); 
+  Out.String("Reading (real) a1 to a4");Out.Ln;
   In.Real(a1); In.Real(a2); In.Real(a3); In.Real(a4); 
+  Out.String("Reading (real) b1 to b4");Out.Ln;
   In.Real(b1); In.Real(b2); In.Real(b3); In.Real(b4);
+  Out.String("Reading (real) c1 to c4");Out.Ln;
   In.Real(c1); In.Real(c2); In.Real(c3); In.Real(c4);
+  Out.String("Reading (real) d1 to d4");Out.Ln;
   In.Real(d1); In.Real(d2); In.Real(d3); In.Real(d4); 
+  Out.String("Reading (real) e1 to e4");Out.Ln;
   In.Real(e1); In.Real(e2); In.Real(e3); In.Real(e4); 
+  Out.String("Reading (real) f1 to f4");Out.Ln;
   In.Real(f1); In.Real(f2); In.Real(f3); In.Real(f4); 
+  Out.String("Reading (real) p1 to p4");Out.Ln;
   In.Real(p1); In.Real(p2); In.Real(p3); In.Real(p4); 
   IF In.Done THEN XYplane.Open; initialized := TRUE
   ELSE Out.String("Parameter error"); Out.Ln;
