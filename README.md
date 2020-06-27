@@ -1,6 +1,3 @@
-{
-    "markup": "mmark"
-}
 
 # IFS
 
